@@ -181,8 +181,8 @@ function endGame(){
 
     result.innerHTML = "Final Score: " + score;
 
-    optA.style.display = "none";
-    optB.style.display = "none";
+    optA.style.display = "inline-block";
+    optB.style.display = "inline-block";
     nextBtn.style.display = "none";
 
     restartBtn.style.display = "inline-block";
