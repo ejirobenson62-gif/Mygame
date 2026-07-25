@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naija Would You Rather - ADDICTIVE EDITION</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <h1>🇳🇬 Naija Would You Rather 🇳🇬</h1>
+  <div class="stats">
+    <p>Score: <span id="score">0</span></p>
+    <p>Lives: <span id="lives">3</span> ❤️</p>
+    <p>Time: <span id="timer">10</span>s</p>
+  </div>
+  <p class="score">Question: <span id="qNum">1</span>/10</p>
+  <div class="question-box">
+    <h2>Would you rather...</h2>
+    <button class="option" id="optA"></button>
+    <p class="vs">OR</p>
+    <button class="option" id="optB"></button>
+  </div>
+  <p id="roast"></p>
+  <p id="result"></p>
+  <button id="nextBtn" style="display:none;">Next Question</button>
+  <button id="restartBtn" style="display:none;">Play Again 🔄</button>
+</div>
+<script src="game.js"></script>
+</body>
+</html>

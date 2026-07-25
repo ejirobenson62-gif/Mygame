@@ -1,0 +1,99 @@
+const questions = [
+  {q: "Eat Indomie everyday", a: "Eat Jollof Rice everyday", roast: ["You be Indomie baby 😂", "Jollof gang! No wonder 😏"]},
+  {q: "NEPA take light for 1 month", a: "No Data for 1 month", roast: ["You go off grid 😭", "No WhatsApp? You strong o"]},
+  {q: "Marry someone wey no get money", a: "Date someone wey get money but dey cheat", roast: ["Love over money ❤️", "Sugar daddy alert 🚨"]},
+  {q: "Drive Tokunbo Benz", a: "Drive brand new Keke", roast: ["Big boy energy 💸", "Keke president 😂"]},
+  {q: "Win 10 Million but no fit travel", a: "Travel abroad but be broke", roast: ["Rich in Naija 🇳🇬", "Broke in London ✈️"]},
+  {q: "Your crush like you back", a: "Win 1 Million Naira", roast: ["Love wins! Awwwn 🥰", "Money over boys/girls 💰"]},
+  {q: "Eat Suya every night", a: "Eat Beans and Bread every morning", roast: ["Suya addict detected 🍢", "Beans lord 👑"]},
+  {q: "Be famous on TikTok", a: "Be rich but anonymous", roast: ["Clout chaser 😂", "Silent billionaire 🤐"]},
+  {q: "Boss dey shout you everyday", a: "Customer dey insult you everyday", roast: ["9-5 suffer head 😩", "Customer care trauma 💀"]},
+  {q: "Go village for Christmas", a: "Stay Lagos alone for Christmas", roast: ["Village pride! Jollof dey wait 🎉", "Lagos loner 🥶"]}
+];
+
+let currentQ = 0, score = 0, lives = 3, timer, timeLeft = 10;
+
+const optA = document.getElementById('optA');
+const optB = document.getElementById('optB');
+const qNum = document.getElementById('qNum');
+const scoreEl = document.getElementById('score');
+const livesEl = document.getElementById('lives');
+const timerEl = document.getElementById('timer');
+const roast = document.getElementById('roast');
+const result = document.getElementById('result');
+const nextBtn = document.getElementById('nextBtn');
+const restartBtn = document.getElementById('restartBtn');
+
+function startTimer() {
+  timeLeft = 10;
+  timerEl.innerText = timeLeft;
+  timer = setInterval(() => {
+    timeLeft--;
+    timerEl.innerText = timeLeft;
+    if(timeLeft <= 0) {
+      clearInterval(timer);
+      lives--;
+      livesEl.innerText = lives;
+      result.innerText = "⏰ Time Up! You lost 1 life";
+      disableOptions();
+      if(lives <= 0) endGame();
+      else nextBtn.style.display = "block";
+    }
+  }, 1000);
+}
+
+function loadQuestion() {
+  clearInterval(timer);
+  if(currentQ >= questions.length || lives <= 0) { endGame(); return; }
+  qNum.innerText = currentQ + 1;
+  optA.innerText = questions[currentQ].q;
+  optB.innerText = questions[currentQ].a;
+  optA.disabled = optB.disabled = false;
+  roast.innerText = result.innerText = "";
+  nextBtn.style.display = "none";
+  startTimer();
+}
+
+function disableOptions() {
+  optA.disabled = optB.disabled = true;
+}
+
+optA.onclick = () => {
+  clearInterval(timer);
+  score += 10;
+  scoreEl.innerText = score;
+  roast.innerText = questions[currentQ].roast[0];
+  result.innerText = "You chose: " + optA.innerText;
+  disableOptions();
+  nextBtn.style.display = "block";
+}
+
+optB.onclick = () => {
+  clearInterval(timer);
+  score += 10;
+  scoreEl.innerText = score;
+  roast.innerText = questions[currentQ].roast[1];
+  result.innerText = "You chose: " + optB.innerText;
+  disableOptions();
+  nextBtn.style.display = "block";
+}
+
+nextBtn.onclick = () => { currentQ++; loadQuestion(); }
+
+function endGame() {
+  clearInterval(timer);
+  let title = score >= 80? "YOU BE NAIJA BOSS! 👑" : score >= 50? "You Try! 😎" : "Go and practice 😂";
+  result.innerHTML = `GAME OVER!<br>Final Score: ${score}<br><b>${title}</b><br>Screenshot and share!`;
+  optA.style.display = optB.style.display = nextBtn.style.display = "none";
+  restartBtn.style.display = "block";
+}
+
+restartBtn.onclick = () => {
+  currentQ = 0; score = 0; lives = 3;
+  scoreEl.innerText = livesEl.innerText = 0;
+  optA.style.display = optB.style.display = "block";
+  restartBtn.style.display = "none";
+  loadQuestion();
+}
+
+loadQuestion();
